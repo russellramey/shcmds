@@ -13,6 +13,9 @@ class shcmds:
     DATASTORE_PATH = shcSYS.getDatastorePath()
     DATASTORE_DATA = shcPARSE.readFileLines(DATASTORE_PATH)
 
+    #
+    # Class constructor
+    #
     def __init__(self):
         pass
 
