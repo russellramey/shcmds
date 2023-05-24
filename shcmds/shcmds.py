@@ -1,7 +1,9 @@
-import src.shcmds_parser as shcPARSE
-import src.shcmds_sys as shcSYS
 import json
 import prettytable
+# from .src import shcmds_parser as shcPARSE
+# from .src import shcmds_sys as shcSYS
+from src import shcmds_parser as shcPARSE
+from src import shcmds_sys as shcSYS
 
 class shcmds:
 
