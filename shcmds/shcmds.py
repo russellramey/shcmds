@@ -1,9 +1,9 @@
 import json
 import prettytable
-# from .src import shcmds_parser as shcPARSE
-# from .src import shcmds_sys as shcSYS
-from src import shcmds_parser as shcPARSE
-from src import shcmds_sys as shcSYS
+from .src import shcmds_parser as shcPARSE
+from .src import shcmds_sys as shcSYS
+# from src import shcmds_parser as shcPARSE
+# from src import shcmds_sys as shcSYS
 
 class shcmds:
 
@@ -99,8 +99,10 @@ class shcmds:
                         item = shcPARSE.formatLine(line.strip())
                         if target[0] != item[0]:
                             f.write(line)
-                    # Print message
-                    print(f"Removed alias: `{args.NAME}`")
+                # Print message
+                print(f"Removed alias: `{args.NAME}`")
+                # Reload config for shell
+                shcSYS.reloadShell()
             else:
                 # Print error
                 print(f"Alias: `{args.NAME}` was not found.")
