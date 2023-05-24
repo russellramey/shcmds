@@ -17,7 +17,7 @@ class shcmds:
         # Get filepath to data
         filepath = shcSYS.getDatastorePath()
         # Search for existing shortcut name
-        if shcPARSE.findLinesFromFile(args.NAME, filepath) is False:
+        if shcPARSE.findLinesFromFile(args.NAME, filepath, True) is False:
             try:
                 # Write data to datastore
                 shcSYS.saveToDatastore(data)
@@ -45,10 +45,13 @@ class shcmds:
             table = prettytable.PrettyTable()
             table.align = 'l'
             table.field_names = ["Name", "Runs command", "Description"]
+            if args.NAME:
+                lines = shcPARSE.findLinesFromFile(args.NAME, filepath)
             # For each line in file
             for line in lines:
-                # Format line as list, strip() new line characters
-                line = shcPARSE.formatLine(line.strip())
+                if args.NAME is None:
+                    # Format line as list, strip() new line characters
+                    line = shcPARSE.formatLine(line.strip())
                 # Add a new table row with values
                 table.add_row([
                     line[0], #name

@@ -24,10 +24,14 @@ def findLinesFromFile(target, filepath, exact=False):
         # Foreach line
         for line in lines:
             # Format line into list
-            line = formatLine(line)
+            line = formatLine(line.strip())
             # Check if target is in the list
-            if target in line[0]:
-                found.append(line)
+            if exact:
+                if target == line[0]:
+                    found.append(line)
+            else:
+                if target in line[0]:
+                    found.append(line)
     # If found, return
     if found and found is not None:
         return found 
