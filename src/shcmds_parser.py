@@ -3,22 +3,32 @@ import os
 
 # Read file as lines
 def readFileLines(filepath):
-    found = []
+    # if Filepath exists
     if(os.path.exists(filepath) is not False):
+        # Open file
         with open(filepath, "r") as f:
+            # Read lines in file
             lines = f.readlines()
             return lines 
+    # Return 
     return False
 
 # Search file for specific line
 def findLinesFromFile(target, filepath, exact=False):
+    # Empty list
     found = []
+    # Readlines from file
     lines = readFileLines(filepath)
+    # If lines exists
     if lines is not False:
+        # Foreach line
         for line in lines:
+            # Format line into list
             line = formatLine(line)
+            # Check if target is in the list
             if target in line[0]:
                 found.append(line)
+    # If found, return
     if found and found is not None:
         return found 
     else:
