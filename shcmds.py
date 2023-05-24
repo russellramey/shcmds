@@ -7,7 +7,8 @@ class shcmds:
     # Add alias
     #
     def _add(self, args):
-        print("Add method")
+        # print("Add method")
+        # return
         return
 
     #
