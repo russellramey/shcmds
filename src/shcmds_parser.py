@@ -28,7 +28,7 @@ def findLinesFromFile(target, filepath, exact=False):
             # Check if target is in the list
             if exact:
                 if target == line[0]:
-                    found.append(line)
+                    found = line
             else:
                 if target in line[0]:
                     found.append(line)

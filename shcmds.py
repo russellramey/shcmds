@@ -5,6 +5,14 @@ import prettytable
 
 class shcmds:
 
+    # 
+    # Defined constants
+    # 
+    SHELL_PROFILE_PATH = shcSYS.getShellProfilePath()
+    SHELL_TYPE = shcSYS.getShellType()
+    DATASTORE_PATH = shcSYS.getDatastorePath()
+    DATASTORE_DATA = shcPARSE.readFileLines(DATASTORE_PATH)
+
     def __init__(self):
         pass
 
@@ -14,10 +22,8 @@ class shcmds:
     def _add(self, args):
         # Build data object
         data = { "name": args.NAME, "command": args.COMMAND, "desc": args.desc }
-        # Get filepath to data
-        filepath = shcSYS.getDatastorePath()
         # Search for existing shortcut name
-        if shcPARSE.findLinesFromFile(args.NAME, filepath, True) is False:
+        if shcPARSE.findLinesFromFile(args.NAME, self.DATASTORE_PATH, True) is False:
             try:
                 # Write data to datastore
                 shcSYS.saveToDatastore(data)
@@ -37,16 +43,15 @@ class shcmds:
     def _list(self, args):
         # Try to execute
         try:
-            # Set filepath to data
-            filepath = shcSYS.getDatastorePath()
             # Read lines of file
-            lines = shcPARSE.readFileLines(filepath)
+            lines = self.DATASTORE_DATA
             # Configure output 
             table = prettytable.PrettyTable()
             table.align = 'l'
             table.field_names = ["Name", "Runs command", "Description"]
+            # If NAME is not None
             if args.NAME:
-                lines = shcPARSE.findLinesFromFile(args.NAME, filepath)
+                lines = shcPARSE.findLinesFromFile(args.NAME, self.DATASTORE_PATH)
             # For each line in file
             for line in lines:
                 if args.NAME is None:
@@ -71,7 +76,31 @@ class shcmds:
     # Remove command
     #
     def _remove(self, args):
-        print("Remove method")
+        try:
+            # Set filepath to data
+            filepath = shcSYS.getDatastorePath()
+            # See if args.NAME exists in file
+            target = shcPARSE.findLinesFromFile(args.NAME, self.DATASTORE_PATH, True)
+            # If target exists
+            if target is not False:
+                # Open file
+                with open(self.DATASTORE_PATH, 'w') as f:
+                    # For each line in datastore
+                    for line in self.DATASTORE_DATA:
+                        # Format line as list, strip() new line characters
+                        item = shcPARSE.formatLine(line.strip())
+                        if target[0] != item[0]:
+                            f.write(line)
+                    # Print message
+                    print(f"Removed alias: `{args.NAME}`")
+            else:
+                # Print error
+                print(f"Alias: `{args.NAME}` was not found.")
+        
+        # Catch exception
+        except Exception as e:
+            print(f"Error trying to remove alias: `{args.NAME}`")
+            print(e) 
 
     #
     # Export command
