@@ -4,11 +4,11 @@ import subprocess
 def getDatastorePath():
     return os.path.abspath(os.path.join(__file__, os.pardir)) + "/.shcdata"
 
-# def writeConfig(data):
-#     line = f"alias shc-{data['name']}='{data['command']}' #{data['desc']}"
-#     with openConfig() as f:
-#         f.write(line + '\n')
-#         f.close()
+def saveToDatastore(data):
+    line = f"alias shc-{data['name']}='{data['command']}' #{data['desc']}"
+    with getDatastore() as f:
+        f.write(line + '\n')
+        f.close()
 
 def getDatastore():
     filepath = getDatastorePath()
