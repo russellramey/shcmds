@@ -11,6 +11,7 @@ def cli():
         prog="shc",
         usage="shc [-options] arguments"
     )
+    parser.set_defaults(func=lambda args: parser.print_help())
     # Create sub parser object as child of main parser
     subparser = parser.add_subparsers()
 
