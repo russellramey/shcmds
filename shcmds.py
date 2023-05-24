@@ -27,6 +27,7 @@ class shcmds:
         data = { "name": args.NAME, "command": args.COMMAND, "desc": args.desc }
         # Search for existing shortcut name
         if shcPARSE.findLinesFromFile(args.NAME, self.DATASTORE_PATH, True) is False:
+            # Try to save to file
             try:
                 # Write data to datastore
                 shcSYS.saveToDatastore(data)
@@ -34,6 +35,8 @@ class shcmds:
                 print(f"New alias saved: {data['name']}")
                 # Reload config for shell
                 shcSYS.reloadShell()
+            
+            # Catch exception
             except Exception as e:
                 print(f"Error trying to save alias: {data['name']}")
                 print(e)
