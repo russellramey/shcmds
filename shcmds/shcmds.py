@@ -123,16 +123,12 @@ class shcmds:
                 args.NAME = 'schdata.json'
             # Try to get data as JSON
             json = shcPARSE.textToJson(self.DATASTORE_DATA)
-            if json is not False:
-                # Open and write json to file
-                with open(args.PATH + '/' + args.NAME, 'w+') as f:
-                    f.write(json)
-                    f.close()
-                # Success
-                print("Successful data export: " + args.PATH + args.NAME)
-            else:
-                # Error
-                print("Unable to export data.")
+            # Open and write json to file
+            with open(args.PATH + '/' + args.NAME, 'w+') as f:
+                f.write(json)
+                f.close()
+            # Success
+            print("Successful data export: " + args.PATH + args.NAME)
         # Catch exception
         except Exception as e:
             print("Unable to export data:")
@@ -143,12 +139,18 @@ class shcmds:
     #
     def _import(self, args):
         try:
+            # Check if file exists
             if shcPARSE.fileExists(args.PATH) is not False:
+                # Open file as read
                 with open(args.PATH, 'r') as f:
+                    # Read/close file
                     data = f.read()
                     f.close()
+                # Convert text data to json
                 data = shcPARSE.jsonToText(data)
+                # Open datasource file
                 with open(self.DATASTORE_PATH, 'w') as fn:
+                    # Write each line to file
                     for line in data:
                         fn.write(line + '\n')
                     fn.close()
