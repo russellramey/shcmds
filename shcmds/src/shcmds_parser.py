@@ -74,7 +74,7 @@ def textToJson(data=None):
             jsonData.append({
                 'name':item[0],
                 'command':item[1],
-                'description':item[2]
+                'desc':item[2]
             })
         # Return list as json
         return json.dumps(jsonData)
@@ -83,4 +83,14 @@ def textToJson(data=None):
 
 # Convert json to text
 def jsonToText(data=None):
-    return
+    # Empty list
+    lines = []
+    # Convert dat to json
+    data = json.loads(data)
+    # Loop thru data and build text lines
+    for item in data:
+        line = f"alias shc-{item['name']}='{item['command']}' #{item['desc']}"
+        # Append line to list
+        lines.append(line)
+    # Return lines
+    return lines

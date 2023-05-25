@@ -1,5 +1,4 @@
 import argparse
-import os
 # from . import shcmds
 import shcmds
 
@@ -38,6 +37,11 @@ def cli():
     shcExport.add_argument("PATH", help="filepath for generated file", type=str)
     shcExport.add_argument("-fn", "--filename", dest="NAME", help="filename for generated file", type=str)
     shcExport.set_defaults(func=shc._export)
+
+    # Export command
+    shcImport = subparser.add_parser("import", help="Export all aliases to a json file", usage="shc import PATH")
+    shcImport.add_argument("PATH", help="path to data file (json)", type=str)
+    shcImport.set_defaults(func=shc._import)
 
     # Parse arguments
     args = parser.parse_args()

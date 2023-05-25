@@ -121,7 +121,6 @@ class shcmds:
                 args.PATH = shcSYS.getCurrentDir()
             if args.NAME is None:
                 args.NAME = 'schdata.json'
-
             # Try to get data as JSON
             json = shcPARSE.textToJson(self.DATASTORE_DATA)
             if json is not False:
@@ -129,13 +128,11 @@ class shcmds:
                 with open(args.PATH + '/' + args.NAME, 'w+') as f:
                     f.write(json)
                     f.close()
-
                 # Success
                 print("Successful data export: " + args.PATH + args.NAME)
             else:
                 # Error
                 print("Unable to export data.")
-        
         # Catch exception
         except Exception as e:
             print("Unable to export data:")
@@ -145,5 +142,22 @@ class shcmds:
     # Import command
     #
     def _import(self, args):
-        print("Import method")
-        return
+        try:
+            if shcPARSE.fileExists(args.PATH) is not False:
+                with open(args.PATH, 'r') as f:
+                    data = f.read()
+                    f.close()
+                data = shcPARSE.jsonToText(data)
+                with open(self.DATASTORE_PATH, 'w') as fn:
+                    for line in data:
+                        fn.write(line + '\n')
+                    fn.close()
+                # Success
+                print("Successful data import.")
+            else:
+                # Error
+                print("Unable to import data: file not found.")
+        # Catch exception
+        except Exception as e:
+            print("Unable to import data:")
+            print(e)
