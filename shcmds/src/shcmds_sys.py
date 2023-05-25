@@ -72,3 +72,6 @@ def uninstall():
     except Exception as e:
         print('Uninstall error: ' + e)
         return False
+
+def getCurrentDir():
+    return os.getcwd()

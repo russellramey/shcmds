@@ -1,0 +1,27 @@
+[
+    {
+        "name": "hosts",
+        "command": "cat /etc/hosts",
+        "description": "This is my comment"
+    },
+    {
+        "name": "cdapi",
+        "command": "cd /Users/russellramey/Documents/Traxo/_Source/devstack/api",
+        "description": "Navigate to traxo-api repository"
+    },
+    {
+        "name": "cdapi2",
+        "command": "cd /Users/russellramey/Documents/Traxo/_Source/devstack/api",
+        "description": "None"
+    },
+    {
+        "name": "devstack",
+        "command": "sh /Users/russellramey/Desktop/devstack.sh",
+        "description": "SSH into devstack vm"
+    },
+    {
+        "name": "test",
+        "command": "whoami",
+        "description": "a new description"
+    }
+]

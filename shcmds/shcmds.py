@@ -1,9 +1,8 @@
-import json
 import prettytable
-from .src import shcmds_parser as shcPARSE
-from .src import shcmds_sys as shcSYS
-# from src import shcmds_parser as shcPARSE
-# from src import shcmds_sys as shcSYS
+# from .src import shcmds_parser as shcPARSE
+# from .src import shcmds_sys as shcSYS
+from src import shcmds_parser as shcPARSE
+from src import shcmds_sys as shcSYS
 
 class shcmds:
 
@@ -116,8 +115,31 @@ class shcmds:
     # Export command
     #
     def _export(self, args):
-        print("Export method")
-        return
+        try:
+            # Validate arguments
+            if args.PATH == '.':
+                args.PATH = shcSYS.getCurrentDir()
+            if args.NAME is None:
+                args.NAME = 'schdata.json'
+
+            # Try to get data as JSON
+            json = shcPARSE.textToJson(self.DATASTORE_DATA)
+            if json is not False:
+                # Open and write json to file
+                with open(args.PATH + '/' + args.NAME, 'w+') as f:
+                    f.write(json)
+                    f.close()
+
+                # Success
+                print("Successful data export: " + args.PATH + args.NAME)
+            else:
+                # Error
+                print("Unable to export data.")
+        
+        # Catch exception
+        except Exception as e:
+            print("Unable to export data:")
+            print(e)
 
     #
     # Import command

@@ -1,6 +1,7 @@
 import argparse
-from . import shcmds
-#import shcmds
+import os
+# from . import shcmds
+import shcmds
 
 def cli():
     # New SHCMDS class
@@ -31,6 +32,12 @@ def cli():
     shcRemove = subparser.add_parser("remove", help="Remove/delete a command alias", usage="shc remove NAME")
     shcRemove.add_argument("NAME", help="name of shorthand command", type=str)
     shcRemove.set_defaults(func=shc._remove)
+
+    # Export command
+    shcExport = subparser.add_parser("export", help="Export all aliases to a json file", usage="shc export PATH [-fn | --filename] filename")
+    shcExport.add_argument("PATH", help="filepath for generated file", type=str)
+    shcExport.add_argument("-fn", "--filename", dest="NAME", help="filename for generated file", type=str)
+    shcExport.set_defaults(func=shc._export)
 
     # Parse arguments
     args = parser.parse_args()

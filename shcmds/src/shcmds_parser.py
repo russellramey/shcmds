@@ -61,9 +61,26 @@ def formatLine(line: str=None):
     return [alias.replace('shc-', ''), command[1:-1], comment]
 
 # Convert file text to json
-def textToJson(data: str=None):
-    return
+def textToJson(data=None):
+    # Empty list
+    jsonData = []
+    # Check to make sure data exists
+    if data is not None:
+        # Loop thorugh data
+        for item in data:
+            # Convert string to list
+            item = formatLine(item.strip())
+            # Append dict to list
+            jsonData.append({
+                'name':item[0],
+                'command':item[1],
+                'description':item[2]
+            })
+        # Return list as json
+        return json.dumps(jsonData)
+    # Return
+    return False
 
 # Convert json to text
-def jsonToText(data: list=None):
+def jsonToText(data=None):
     return
