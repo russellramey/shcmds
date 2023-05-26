@@ -40,8 +40,8 @@ class shcmds:
                 self.__saveData(data)
                 # Print result
                 print(f"New alias saved: {data['name']}")
-                # Reload config for shell
-                shcSYS.reloadShell()
+                # Reload message
+                self.__reloadShellHelper()
             
             # Catch exception
             except Exception as e:
@@ -106,8 +106,8 @@ class shcmds:
                             f.write(line)
                 # Print message
                 print(f"Removed alias: `{args.NAME}`")
-                # Reload config for shell
-                shcSYS.reloadShell()
+                # Reload message
+                self.__reloadShellHelper()
             else:
                 # Print error
                 print(f"Alias: `{args.NAME}` was not found.")
@@ -208,3 +208,7 @@ class shcmds:
             print('Uninstall error:')
             print(e)
             return False
+
+    # Private: reload shell
+    def __reloadShellHelper(self):
+        print(f"To enable latest changes please run:\033[1m source {self.SHELL_PROFILE_PATH} \033[0m")

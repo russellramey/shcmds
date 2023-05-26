@@ -1,6 +1,6 @@
 import argparse
-# from .src import shcmds
-from src import shcmds
+from .src import shcmds
+# from src import shcmds
 
 def cli():
     # New SHCMDS class
@@ -46,7 +46,6 @@ def cli():
     # Parse arguments
     args = parser.parse_args()
     args.func(args)
-
 
 # Main
 if __name__ == "__main__":

@@ -17,14 +17,6 @@ def getShellProfilePath():
         print(e)
         return False
 
-def reloadShell():
-    shell = getShellType()
-    if 'zsh' in shell:
-        subprocess.run(shell + '; source ~/.zshrc', shell=True)
-    if 'bash' in shell:
-        subprocess.run(shell + '; source ~/.bashrc', shell=True)
-    return True
-
 def getShellType():
     return os.environ['SHELL']
 
