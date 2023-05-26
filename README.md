@@ -22,11 +22,7 @@ To use an alias, just simply call the **`shc-NAME`**. For example, say you creat
 If an added alias fails to run and you recieve a `command not found` error. You can manually reload your shell profile in your current session with `source ~/.{PROFILE_FILE_NAME}`. Or you can simply open a new shell session.
 
 ### Filesystem
-This CLI tool will attempt to modify your existing shell profile, by appending a single line to include the `.shcdata` file that stores your created aliases.
-
-The `.shcdata` file can be found on unix systems at: `/usr/local/lib/python3.X/site-packages/shcmds/src/.shcdata`.
-
-If needed, you can manually add this file to your shell profile.
+This CLI tool will attempt to modify your existing shell profile, by appending a single line to include the `.shcdata` file that stores your created aliases. The `.shcdata` file can be found on unix systems at: `/usr/local/lib/pythonX.X/site-packages/shcmds/src/.shcdata`.
 
 ### Local build/install
 ```bash
