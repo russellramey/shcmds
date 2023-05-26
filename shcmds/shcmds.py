@@ -19,8 +19,11 @@ class shcmds:
     def __init__(self):
         # Create data file if it does not exists
         if shcSYS.fileExists(self.DATASTORE_PATH) is False:
+             # Create data file
             file = open(self.DATASTORE_PATH, 'w')
             file.close()
+            # Install
+            self.__install()
 
         # Set golbal data
         self.DATASTORE_DATA = shcPARSE.readFileLines(self.DATASTORE_PATH)
@@ -36,7 +39,7 @@ class shcmds:
             # Try to save to file
             try:
                 # Write data to datastore
-                shcSYS.saveToDatastore(data)
+                self.__saveData(data)
                 # Print result
                 print(f"New alias saved: {data['name']}")
                 # Reload config for shell
@@ -168,3 +171,42 @@ class shcmds:
         except Exception as e:
             print("Unable to import data:")
             print(e)
+
+    # Private: save
+    def __saveData(self, data):
+        # Create new text line from data
+        line = f"alias shc-{data['name']}='{data['command']}' #{data['desc']}"
+        # Open file and write line
+        with open(self.DATASTORE_PATH, 'a') as f:
+            f.write(line + '\n')
+            f.close()
+
+    # Private: install
+    def __install(self):
+        try:
+            ## Try to add datastor path to profile
+            with open(self.SHELL_PROFILE_PATH, "a") as f:
+                f.write('source ' + self.DATASTORE_PATH + '\n')
+                f.close()
+            # Return
+            return True
+        except Exception as e:
+            print('Install error: ')
+            print(e)
+            return False
+
+    # Private: uninstall
+    def __uninstall(self):
+        try:
+            with open(self.SHELL_PROFILE_PATH, "r") as f:
+                lines = f.readlines()
+            with open(self.SHELL_PROFILE_PATH, "w") as f:
+                for line in lines:
+                    if self.DATASTORE_PATH not in line:
+                        f.write(line)
+                f.close()
+            return True
+        except Exception as e:
+            print('Uninstall error:')
+            print(e)
+            return False
