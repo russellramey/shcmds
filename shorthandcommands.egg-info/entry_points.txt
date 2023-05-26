@@ -1,3 +1,0 @@
-[console_scripts]
-shc = shcmds.cli:cli
-shcmd = shcmds.cli:cli
