@@ -10,6 +10,8 @@ class shcmds:
     SHELL_PROFILE_PATH = shcSYS.getShellProfilePath()
     SHELL_TYPE = shcSYS.getShellType()
     DATASTORE_PATH = shcSYS.getDatastorePath()
+    TEXT_BOLD = '\033[1m'
+    TEXT_DEFAULT = '\033[0m'
 
     #
     # Class constructor
@@ -39,16 +41,16 @@ class shcmds:
                 # Write data to datastore
                 self.__saveData(data)
                 # Print result
-                print(f"New alias saved: {data['name']}")
+                print(f"{self.TEXT_BOLD}New alias saved{self.TEXT_DEFAULT}: {data['name']}")
                 # Reload message
                 self.__reloadShellHelper()
             
             # Catch exception
             except Exception as e:
-                print(f"Error trying to save alias: {data['name']}")
+                print(f"{self.TEXT_BOLD}Error trying to save alias{self.TEXT_DEFAULT}: {data['name']}")
                 print(e)
         else:
-            print(f"Alias `{data['name']}` already exists")
+            print(f"Alias {self.TEXT_BOLD}{data['name']}{self.TEXT_DEFAULT} already exists")
 
     #
     # List command
@@ -61,7 +63,10 @@ class shcmds:
             # Configure output 
             table = prettytable.PrettyTable()
             table.align = 'l'
-            table.field_names = ["Name", "Runs command", "Description"]
+            table.field_names = [
+                f"{self.TEXT_BOLD}Name{self.TEXT_DEFAULT}", 
+                f"{self.TEXT_BOLD}Runs command{self.TEXT_DEFAULT}", 
+                f"{self.TEXT_BOLD}Description{self.TEXT_DEFAULT}"]
             # If NAME is not None
             if args.NAME:
                 lines = shcPARSE.findLinesFromFile(args.NAME, self.DATASTORE_PATH)
@@ -77,12 +82,12 @@ class shcmds:
                     line[2], #desc
                 ])
             # Print out table
-            print("\nTo use a Shorthand Command alias, simply call: shc-NAME\n")
+            print(f"\nTo use a Shorthand Command alias, simply call: {self.TEXT_BOLD}shc-NAME{self.TEXT_DEFAULT}\n")
             print(table)
 
         # Catch exceptions
         except Exception as e:
-            print('Error listing aliases.')
+            print(f'{self.TEXT_BOLD}Error listing aliases{self.TEXT_DEFAULT}.')
             print(e)
 
     #
@@ -105,16 +110,16 @@ class shcmds:
                         if target[0] != item[0]:
                             f.write(line)
                 # Print message
-                print(f"Removed alias: `{args.NAME}`")
+                print(f"{self.TEXT_BOLD}Removed alias{self.TEXT_DEFAULT}: `{args.NAME}`")
                 # Reload message
                 self.__reloadShellHelper()
             else:
                 # Print error
-                print(f"Alias: `{args.NAME}` was not found.")
+                print(f"Alias: {self.TEXT_BOLD}{args.NAME}{self.TEXT_DEFAULT} was not found.")
         
         # Catch exception
         except Exception as e:
-            print(f"Error trying to remove alias: `{args.NAME}`")
+            print(f"{self.TEXT_BOLD}Error trying to remove alias{self.TEXT_DEFAULT}: `{args.NAME}`")
             print(e) 
 
     #
@@ -134,7 +139,7 @@ class shcmds:
                 f.write(json)
                 f.close()
             # Success
-            print("Successful data export: " + args.PATH + '/' + args.NAME)
+            print(f"{self.TEXT_BOLD}Successful data export{self.TEXT_DEFAULT}: {args.PATH}/{args.NAME}")
         # Catch exception
         except Exception as e:
             print("Unable to export data:")
@@ -161,10 +166,10 @@ class shcmds:
                         fn.write(line + '\n')
                     fn.close()
                 # Success
-                print("Successful data import.")
+                print(f"{self.TEXT_BOLD}Successful data import{self.TEXT_DEFAULT}.")
             else:
                 # Error
-                print("Unable to import data: file not found.")
+                print(f"{self.TEXT_BOLD}Unable to import data: file not found{self.TEXT_DEFAULT}.")
         # Catch exception
         except Exception as e:
             print("Unable to import data:")
@@ -189,7 +194,7 @@ class shcmds:
             # Return
             return True
         except Exception as e:
-            print('Install error: ')
+            print(f'{self.TEXT_BOLD}Install error{self.TEXT_DEFAULT}: ')
             print(e)
             return False
 
@@ -205,10 +210,10 @@ class shcmds:
                 f.close()
             return True
         except Exception as e:
-            print('Uninstall error:')
+            print(f'{self.TEXT_BOLD}Uninstall error{self.TEXT_DEFAULT}:')
             print(e)
             return False
 
     # Private: reload shell
     def __reloadShellHelper(self):
-        print(f"To enable latest changes please run:\033[1m source {self.SHELL_PROFILE_PATH} \033[0m")
+        print(f"* To enable latest alias changes you will need to\n* open a new shell or run:{self.TEXT_BOLD} source {self.SHELL_PROFILE_PATH}{self.TEXT_DEFAULT}")
