@@ -3,24 +3,6 @@ import subprocess
 
 def getDatastorePath():
     return os.path.abspath(os.path.join(__file__, os.pardir)) + "/.shcdata"
-
-def saveToDatastore(data):
-    line = f"alias shc-{data['name']}='{data['command']}' #{data['desc']}"
-    with getDatastore() as f:
-        f.write(line + '\n')
-        f.close()
-
-def getDatastore():
-    filepath = getDatastorePath()
-    try:
-        if(os.path.exists(filepath) is False):
-            file = open(filepath, 'w+')
-        else:
-            file = open(filepath, 'a')
-        return file
-    except Exception as e:
-        print('Datastore error: ' + e)
-        return False
         
 def getShellProfilePath():
     shell = getShellType()
@@ -44,6 +26,12 @@ def reloadShell():
 
 def getShellType():
     return os.environ['SHELL']
+
+def saveToDatastore(data):
+    line = f"alias shc-{data['name']}='{data['command']}' #{data['desc']}"
+    with open(getDatastorePath(), 'a') as f:
+        f.write(line + '\n')
+        f.close()
 
 def install():
     shellpath = getShellProfilePath()
@@ -75,3 +63,8 @@ def uninstall():
 
 def getCurrentDir():
     return os.getcwd()
+
+def fileExists(filepath):
+    if(os.path.exists(filepath) is not False):
+        return True
+    return False

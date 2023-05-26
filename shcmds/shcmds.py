@@ -1,8 +1,8 @@
 import prettytable
-from .src import shcmds_parser as shcPARSE
-from .src import shcmds_sys as shcSYS
-# from src import shcmds_parser as shcPARSE
-# from src import shcmds_sys as shcSYS
+# from .src import shcmds_parser as shcPARSE
+# from .src import shcmds_sys as shcSYS
+from src import shcmds_parser as shcPARSE
+from src import shcmds_sys as shcSYS
 
 class shcmds:
 
@@ -12,16 +12,21 @@ class shcmds:
     SHELL_PROFILE_PATH = shcSYS.getShellProfilePath()
     SHELL_TYPE = shcSYS.getShellType()
     DATASTORE_PATH = shcSYS.getDatastorePath()
-    DATASTORE_DATA = shcPARSE.readFileLines(DATASTORE_PATH)
 
     #
     # Class constructor
     #
     def __init__(self):
-        pass
+        # Create data file if it does not exists
+        if shcSYS.fileExists(self.DATASTORE_PATH) is False:
+            file = open(self.DATASTORE_PATH, 'w')
+            file.close()
+
+        # Set golbal data
+        self.DATASTORE_DATA = shcPARSE.readFileLines(self.DATASTORE_PATH)
 
     #
-    # Add alias
+    # Add command
     #
     def _add(self, args):
         # Build data object
@@ -140,7 +145,7 @@ class shcmds:
     def _import(self, args):
         try:
             # Check if file exists
-            if shcPARSE.fileExists(args.PATH) is not False:
+            if shcSYS.fileExists(args.PATH) is not False:
                 # Open file as read
                 with open(args.PATH, 'r') as f:
                     # Read/close file

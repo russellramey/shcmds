@@ -1,16 +1,10 @@
 import json
-import os
-
-# Check if file exits
-def fileExists(filepath):
-    if(os.path.exists(filepath) is not False):
-        return True
-    return False
+from . import shcmds_sys as shcSYS
 
 # Read file as lines
 def readFileLines(filepath):
     # if Filepath exists
-    if(fileExists(filepath)):
+    if(shcSYS.fileExists(filepath)):
         # Open file
         with open(filepath, "r") as f:
             # Read lines in file
