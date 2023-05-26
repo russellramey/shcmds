@@ -1,6 +1,6 @@
 import argparse
-# from . import shcmds
-import shcmds
+# from .src import shcmds
+from src import shcmds
 
 def cli():
     # New SHCMDS class
