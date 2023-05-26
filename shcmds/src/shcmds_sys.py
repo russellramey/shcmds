@@ -1,5 +1,4 @@
 import os
-import subprocess
 
 def getDatastorePath():
     return os.path.abspath(os.path.join(__file__, os.pardir)) + "/.shcdata"
