@@ -27,6 +27,11 @@ def cli():
     shcList.add_argument("-f", "--filter", dest="NAME", help="filter by alias name", type=str, metavar="NAME")
     shcList.set_defaults(func=shc._list)
 
+    # Show command
+    shcShow = subparser.add_parser("show", help="Show single alias details", usage="shc show NAME")
+    shcShow.add_argument("NAME", help="name of alias", type=str)
+    shcShow.set_defaults(func=shc._show)
+
     # Remove command
     shcRemove = subparser.add_parser("remove", help="Remove/delete a command alias", usage="shc remove NAME")
     shcRemove.add_argument("NAME", help="name of shorthand command", type=str)

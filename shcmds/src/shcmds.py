@@ -91,6 +91,21 @@ class shcmds:
             print(e)
 
     #
+    # Show command
+    #
+    def _show(self, args):
+        # Get target alias
+        target = shcPARSE.findLinesFromFile(args.NAME, self.DATASTORE_PATH, True)
+        # Search for existing shortcut name
+        if target is not False:
+            print(f"{self.TEXT_BOLD}Alias name{self.TEXT_DEFAULT}: {target[0]}")
+            print(f"{self.TEXT_BOLD}Description{self.TEXT_DEFAULT}: {target[2]}")
+            print(f"{self.TEXT_BOLD}Command{self.TEXT_DEFAULT}: {target[1]}")
+            print(f"{self.TEXT_BOLD}Usage{self.TEXT_DEFAULT}: shc-{target[0]}")
+        else:
+            # Print error
+            print(f"Command alias {self.TEXT_BOLD}{args.NAME}{self.TEXT_DEFAULT} was not found.")
+    #
     # Remove command
     #
     def _remove(self, args):
