@@ -13,6 +13,29 @@ def getDatastorePath():
     return os.path.abspath(os.path.join(__file__, os.pardir)) + "/.shcdata"
 
 #
+# Shell type
+# Returns current shell environment type
+#
+def getShellType():
+    return os.environ['SHELL']
+
+#
+# Current Directory
+# Returns current working directory form shell
+#
+def getCurrentDir():
+    return os.getcwd()
+
+#
+# File Exists
+# simply checks to see if a filepath exists
+#
+def fileExists(filepath):
+    if(os.path.exists(filepath) is not False):
+        return True
+    return False
+
+#
 # Shell file path
 # Try to get the current shell profile filepath
 #
@@ -40,26 +63,3 @@ def getShellProfilePath():
         print('Shell profile error:')
         print(e)
         return False
-
-#
-# Shell type
-# Returns current shell environment type
-#
-def getShellType():
-    return os.environ['SHELL']
-
-#
-# Current Directory
-# Returns current working directory form shell
-#
-def getCurrentDir():
-    return os.getcwd()
-
-#
-# File Exists
-# simply checks to see if a filepath exists
-#
-def fileExists(filepath):
-    if(os.path.exists(filepath) is not False):
-        return True
-    return False
