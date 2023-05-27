@@ -24,10 +24,14 @@ def getShellProfilePath():
         filepath = os.path.expanduser('~') + '/.profile'
         # Zsh Shell
         if 'zsh' in shell:
-            filepath = os.path.expanduser('~') + '/.zshrc'
+            filepath = os.path.expanduser('~') + '/.zprofile'
+            if fileExists(filepath) is False:
+                filepath = os.path.expanduser('~') + '/.zshrc'
         # Bash Shell
         if 'bash' in shell:
-            filepath = os.path.expanduser('~') + '/.profile'
+            filepath = os.path.expanduser('~') + '/.bash_profile'
+            if fileExists(filepath) is False:
+                filepath = os.path.expanduser('~') + '/.profile'
         # Return path
         return filepath
     except Exception as e:
