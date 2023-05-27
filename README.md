@@ -1,5 +1,5 @@
 # Shorthand Commands (shcmds)
-A simple CLI utility that lets you easily create and manage command aliases for your specific shell environemnt. Currently supports **`zsh`** and **`bash`** shell environments.
+A simple CLI utility that lets you easily create and manage command aliases for your specific shell environment. Currently supports **`zsh`** and **`bash`** shell environments.
 
 ### How it works
 This CLI tool allows you to easily create naitve shell `aliases` with a simple command line interface. These aliases get written to a data file and that file is then added to your shell profile as a `source` include.
