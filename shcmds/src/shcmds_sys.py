@@ -20,18 +20,20 @@ def getShellProfilePath():
     try:
         # Get shell type
         shell = getShellType()
-        # Default 
-        filepath = os.path.expanduser('~') + '/.profile'
+        # User home dir
+        home = os.path.expanduser('~')
+        # Default profile
+        filepath = home + '/.profile'
         # Zsh Shell
         if 'zsh' in shell:
-            filepath = os.path.expanduser('~') + '/.zprofile'
+            filepath = home + '/.zprofile'
             if fileExists(filepath) is False:
-                filepath = os.path.expanduser('~') + '/.zshrc'
+                filepath = home + '/.zshrc'
         # Bash Shell
         if 'bash' in shell:
-            filepath = os.path.expanduser('~') + '/.bash_profile'
+            filepath = home + '/.bash_profile'
             if fileExists(filepath) is False:
-                filepath = os.path.expanduser('~') + '/.profile'
+                filepath = home + '/.profile'
         # Return path
         return filepath
     except Exception as e:
