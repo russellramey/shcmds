@@ -24,12 +24,12 @@ def cli():
 
     # List command
     shcList = subparser.add_parser("list", help="List existing command aliases", usage="shc list [-f] NAME")
-    shcList.add_argument("-f", "--filter", dest="NAME", help="filter by alias name", type=str, metavar="NAME")
+    shcList.add_argument("-f", "--filter", dest="NAME", help="filter by shorthand command name", type=str, metavar="NAME")
     shcList.set_defaults(func=shc._list)
 
     # Show command
-    shcShow = subparser.add_parser("show", help="Show single alias details", usage="shc show NAME")
-    shcShow.add_argument("NAME", help="name of alias", type=str)
+    shcShow = subparser.add_parser("show", help="Show single command alias details", usage="shc show NAME")
+    shcShow.add_argument("NAME", help="name of shorthand command", type=str)
     shcShow.set_defaults(func=shc._show)
 
     # Remove command
