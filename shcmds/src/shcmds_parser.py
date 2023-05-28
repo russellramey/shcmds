@@ -54,6 +54,14 @@ def formatLine(line: str=None):
     # Return list
     return [alias.replace('shc-', ''), command[1:-1], comment]
 
+# Truncate string
+# Shorten a string if the max len is longer than desired
+# Automatically append elipsis (...)
+def truncateString(string, maxLen):
+    if len(string) > maxLen:
+        string = string[0:maxLen] + '...'
+    return string
+
 # Convert file text to json
 def textToJson(data=None):
     # Empty list

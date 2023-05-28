@@ -78,12 +78,13 @@ class shcmds:
                 # Add a new table row with values
                 table.add_row([
                     line[0], #name
-                    line[1], #command
-                    line[2], #desc
+                    shcPARSE.truncateString(line[1], 60), #command
+                    shcPARSE.truncateString(line[2], 40), #desc
                 ])
             # Print out table
-            print(f"\nTo use a Shorthand Command alias, simply call: {self.TEXT_BOLD}shc-NAME{self.TEXT_DEFAULT}\n")
+            print(f"\nUse a command alias with: {self.TEXT_BOLD}shc-NAME{self.TEXT_DEFAULT}\n")
             print(table)
+            print(f"View alias details with: {self.TEXT_BOLD}shc show NAME{self.TEXT_DEFAULT}\n")
 
         # Catch exceptions
         except Exception as e:
