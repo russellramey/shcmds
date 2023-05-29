@@ -20,6 +20,7 @@ def cli():
     shcAdd.add_argument("NAME", help="name of shorthand command", type=str)
     shcAdd.add_argument("COMMAND", help="command to run on invocation", type=str)
     shcAdd.add_argument("-d", "--desc", dest="desc", help="description of command", type=str, metavar="STRING")
+    shcAdd.add_argument("-f", "--force", help="override existing shorthand command, if name exists", action='store_true')
     shcAdd.set_defaults(func=shc._add)
 
     # List command

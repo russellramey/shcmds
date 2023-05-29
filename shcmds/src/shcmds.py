@@ -17,6 +17,9 @@ class shcmds:
     # Class constructor
     #
     def __init__(self):
+        # Set properties 
+        self.noPrint = False
+
         # Create data file if it does not exists
         if shcSYS.fileExists(self.DATASTORE_PATH) is False:
              # Create data file
@@ -50,7 +53,21 @@ class shcmds:
                 print(f"{self.TEXT_BOLD}Error trying to save alias{self.TEXT_DEFAULT}: {data['name']}")
                 print(e)
         else:
-            print(f"Alias {self.TEXT_BOLD}{data['name']}{self.TEXT_DEFAULT} already exists")
+            # Print message
+            print(f"Shorhand command {self.TEXT_BOLD}{data['name']}{self.TEXT_DEFAULT} already exists")
+            # If force argument is present
+            if args.force:
+                # Confirm force override
+                force = input(f"Would you like to override the current shorthand command, {self.TEXT_BOLD}{args.NAME}{self.TEXT_DEFAULT}? [y/N]: ")
+                if force != 'y':
+                    return
+                # toggle no print
+                self.noPrint = True
+                # Remove alias
+                self._remove(args)
+                # Add alias
+                self._add(args)
+            
 
     #
     # List command
@@ -125,6 +142,9 @@ class shcmds:
                         item = shcPARSE.formatLine(line.strip())
                         if target[0] != item[0]:
                             f.write(line)
+                # If no print messages desired
+                if self.noPrint:
+                    return
                 # Print message
                 print(f"{self.TEXT_BOLD}Removed alias{self.TEXT_DEFAULT}: `{args.NAME}`")
                 # Reload message
