@@ -24,8 +24,8 @@ def cli():
     shcAdd.set_defaults(func=shc._add)
 
     # List command
-    shcList = subparser.add_parser("list", help="List existing command aliases", usage="shc list [-f] NAME")
-    shcList.add_argument("-f", "--filter", dest="NAME", help="filter by shorthand command name", type=str, metavar="NAME")
+    shcList = subparser.add_parser("list", help="List existing command aliases", usage="shc list [-s | --search] NAME")
+    shcList.add_argument("-s", "--search", dest="NAME", help="search shorthand commands by name", type=str, metavar="NAME")
     shcList.set_defaults(func=shc._list)
 
     # Show command
@@ -39,9 +39,9 @@ def cli():
     shcRemove.set_defaults(func=shc._remove)
 
     # Export command
-    shcExport = subparser.add_parser("export", help="Export all aliases to a json file", usage="shc export PATH [-fn | --filename] filename")
+    shcExport = subparser.add_parser("export", help="Export all aliases to a json file", usage="shc export PATH [-o | --output] FILENAME")
     shcExport.add_argument("PATH", help="filepath for generated file", type=str)
-    shcExport.add_argument("-fn", "--filename", dest="NAME", help="filename for generated file", type=str)
+    shcExport.add_argument("-o", "--output", dest="NAME", help="filename for generated file", type=str)
     shcExport.set_defaults(func=shc._export)
 
     # Export command
