@@ -12,6 +12,7 @@ This CLI provides simple commands to manage your shell aliases.
 - `shc add NAME COMMAND` - Add new shorthand command
 - `shc remove NAME` - Remove shorthand command by name
 - `shc list` - List all available shorthand commands
+- `shc show NAME` - Show the details of a specific shorthand command
 - `shc export FILEPATH` - Export shorthand command data (json)
 - `shc import FILEPATH` - Import shorthand command data (json)
 
@@ -36,6 +37,12 @@ Remove an existing shorthand command.
 List shorthand commands.
 ##### Options
 - **-s | --search**: Search all shorthand commands by name, limits results in list to matching or similar names.
+
+#### Show shorthand command
+**Usage**: `shc show NAME`
+Show full details of a specific shorthand command
+##### Arguments
+- **NAME**: Name of shorthand command.
 
 #### Export shorthand command data
 **Usage**: `shc export FILEPATH [-o | --output] "FILENAME"`  
